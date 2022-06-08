@@ -1,10 +1,6 @@
-'''Реализуйте для класса Vector операции сложения и вычитания векторов.
-Т.е. переопределите для него математические операторы __add__ и __sub__
-
-Есть два вектора: a с координатами (x1, y1) и b с координатами (x2, y2).
-
-Тогда сложение векторов b + a — это новый вектор с координатами (x2 + x1, y2 + y1).
-Вычитание — обратная операция, b - a — это новый вектор с координатами (x2 - x1, y2 - y1)'''
+'''Реализуйте все методы сравнения для класса Vector.
+В целях упрощения сравнивать экземпляры класса Vector будем только по их длине,
+используя метод len, не учитывая направление векторов.'''
 
 
 class Point:
@@ -59,14 +55,41 @@ class Vector:
         return self.coordinates.x, self.coordinates.y
 
     def __add__(self, vector):
-        x = self.coordinates.x + vector[0]
-        y = self.coordinates.y + vector[1]
+        x = self.coordinates.x + vector.coordinates.x
+        y = self.coordinates.y + vector.coordinates.y
         return Vector(Point(x, y))
 
     def __sub__(self, vector):
-        x = self.coordinates.x - vector[0]
-        y = self.coordinates.y - vector[1]
+        x = self.coordinates.x - vector.coordinates.x
+        y = self.coordinates.y - vector.coordinates.y
         return Vector(Point(x, y))
+
+    def __mul__(self, vector):
+        return (
+                self.coordinates.x * vector.coordinates.x
+                + self.coordinates.y * vector.coordinates.y
+        )
+
+    def len(self):
+        return (self.coordinates.x ** 2 + self.coordinates.y ** 2) ** 0.5
 
     def __str__(self):
         return f"Vector({self.coordinates.x},{self.coordinates.y})"
+
+    def __eq__(self, other):
+        return self.len() == other.len()
+
+    def __ne__(self, other):
+        return self.len() != other.len()
+
+    def __lt__(self, other):
+        return self.len() < other.len()
+
+    def __gt__(self, other):
+        return self.len() > other.len()
+
+    def __le__(self, other):
+        return self.len() <= other.len()
+
+    def __ge__(self, other):
+        return self.len() >= other.len()

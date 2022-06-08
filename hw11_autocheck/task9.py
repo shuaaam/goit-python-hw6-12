@@ -1,11 +1,8 @@
-'''Реализуйте для класса Vector операции сложения и вычитания векторов.
-Т.е. переопределите для него математические операторы __add__ и __sub__
+'''Прежде чем мы приступим к операциям сравнения векторов, реализуйте метод определения длины вектора — len для класса Vector
 
-Есть два вектора: a с координатами (x1, y1) и b с координатами (x2, y2).
+Для вектора a с координатами (x1, y1) его длина определяется по следующей формуле:
 
-Тогда сложение векторов b + a — это новый вектор с координатами (x2 + x1, y2 + y1).
-Вычитание — обратная операция, b - a — это новый вектор с координатами (x2 - x1, y2 - y1)'''
-
+(x1 ** 2 + y1 ** 2) ** 0.5.'''
 
 class Point:
     def __init__(self, x, y):
@@ -59,14 +56,23 @@ class Vector:
         return self.coordinates.x, self.coordinates.y
 
     def __add__(self, vector):
-        x = self.coordinates.x + vector[0]
-        y = self.coordinates.y + vector[1]
+        x = self.coordinates.x + vector.coordinates.x
+        y = self.coordinates.y + vector.coordinates.y
         return Vector(Point(x, y))
 
     def __sub__(self, vector):
-        x = self.coordinates.x - vector[0]
-        y = self.coordinates.y - vector[1]
+        x = self.coordinates.x - vector.coordinates.x
+        y = self.coordinates.y - vector.coordinates.y
         return Vector(Point(x, y))
+
+    def __mul__(self, vector):
+        return (
+                self.coordinates.x * vector.coordinates.x
+                + self.coordinates.y * vector.coordinates.y
+        )
+
+    def len(self):
+        return (self.coordinates.x**2 + self.coordinates.y**2)**0.5
 
     def __str__(self):
         return f"Vector({self.coordinates.x},{self.coordinates.y})"
